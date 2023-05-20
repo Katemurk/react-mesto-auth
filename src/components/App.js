@@ -152,8 +152,8 @@ const App = () => {
   };
 
   const handleLogin = (data) => {
-    setLoggedIn(true);
     setEmail(data);
+    setLoggedIn(true);
   };
 
   const handleRegistration = (email, password) => {
