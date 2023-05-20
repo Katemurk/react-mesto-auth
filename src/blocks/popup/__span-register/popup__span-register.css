@@ -1,0 +1,13 @@
+.popup__span-register {
+    padding: 15px 0 0 0;
+    margin: 0 auto;
+    color: white;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.popup__span-register:hover {
+  opacity: 0.6;
+}

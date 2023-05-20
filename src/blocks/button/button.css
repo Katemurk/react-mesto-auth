@@ -1,0 +1,12 @@
+.button {
+  padding: 0;
+  margin: 0;
+  background: #000000;
+  border-style: solid;
+  border-color: #FFFFFF;
+  border-width: 1px;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+}

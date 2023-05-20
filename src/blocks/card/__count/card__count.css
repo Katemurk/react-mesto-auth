@@ -1,0 +1,13 @@
+.card__count {
+  margin: 0;
+  padding: 3px 0 0 0;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #000000;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+}

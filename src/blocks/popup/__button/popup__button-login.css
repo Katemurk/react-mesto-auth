@@ -1,0 +1,11 @@
+.popup__button-login {
+    background-color: white;
+    color: black;
+    margin-top: 187px;
+}
+
+/* @media screen and (max-width: 530px) {
+    .popup__button-login {
+    margin-top: 160px;
+    }
+  } */

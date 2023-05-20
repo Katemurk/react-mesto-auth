@@ -1,0 +1,15 @@
+.header__info {
+  padding: 0;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  /* display: grid;
+    grid-template-columns: 3fr 141px 56px; */
+}
+
+@media screen and (max-width: 560px) {
+  .header__info {
+    flex-direction: column-reverse;
+  }
+}
