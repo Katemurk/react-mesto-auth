@@ -20,9 +20,6 @@ const Register = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.handleRegistration(formValue.email, formValue.password);
-    //  auth.register(formValue.email, formValue.password).then((res) => {
-    //    navigate("/sign-in", { replace: true });
-    //  });
   };
 
   return (
@@ -38,13 +35,12 @@ const Register = (props) => {
         <div className="popup__container_type_login">
           <h2 className="popup__heading popup__heading-login">Регистрация</h2>
           <form
-            noValidate
             className={`popup__form popup__form_type_login`}
             onSubmit={handleSubmit}
           >
             <div className="popup__field">
               <input
-                type="url"
+                type="email"
                 value={formValue.email}
                 onChange={handleChange}
                 required

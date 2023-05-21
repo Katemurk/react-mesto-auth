@@ -23,6 +23,7 @@ const App = () => {
     useState(false);
   const [isTooltipPopupOpen, setIsTooltipPopupOpen] = useState(false);
   const [isRegistred, setIsRegistred] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
   const [currentUser, setCurrentUser] = useState({});
   const [selectedCard, setSelectedCard] = useState({
     isOpen: false,
@@ -58,16 +59,20 @@ const App = () => {
   }, []);
 
   const handleTokenCheck = () => {
-    if (localStorage.getItem("jwt")) {
-      const jwt = localStorage.getItem("jwt");
-      auth.checkToken(jwt).then((res) => {
-        if (res) {
-          navigate("/", { replace: true });
-          setLoggedIn(true);
-          setEmail(res.data.email);
-        }
-      })
-      .catch((err) => console.log(err));
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      auth
+        .checkToken(jwt)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            navigate("/", { replace: true });
+            setEmail(res.data.email);
+          }
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
     }
   };
 
@@ -151,22 +156,41 @@ const App = () => {
       });
   };
 
-  const handleLogin = (data) => {
-    setEmail(data);
-    setLoggedIn(true);
+  const handleLogin = (email, password) => {
+    auth
+      .authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          setLoggedIn(true);
+          setEmail(email);
+          navigate("/", { replace: true });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsRegistred(false);
+        setSuccessMsg("Что-то пошло не так! Попробуйте ещё раз.");
+        setIsTooltipPopupOpen(true);
+      });
   };
+  
+  const signOut = () => {
+    localStorage.removeItem("jwt");
+    navigate("/sign-in");
+  }
 
   const handleRegistration = (email, password) => {
     auth
       .register(email, password)
       .then((res) => {
-        //localStorage.setItem('jwt', res.token)
         navigate("/sign-in", { replace: true });
+        setSuccessMsg("Вы успешно зарегистрировались!");
         setIsRegistred(true);
       })
       .catch((err) => {
         console.log(err);
         setIsRegistred(false);
+        setSuccessMsg("Что-то пошло не так! Попробуйте ещё раз.");
       })
       .finally(() => {
         setIsTooltipPopupOpen(true);
@@ -234,6 +258,7 @@ const App = () => {
                 onCardDelete={handleCardDeleteClick}
                 cards={cards}
                 email={email}
+                signOut={signOut}
               />
             }
           />
@@ -243,7 +268,7 @@ const App = () => {
           ></Route>
           <Route
             path="/sign-in"
-            element={<Login handleLogin={handleLogin} />}
+            element={<Login onLogin={handleLogin} />}
           ></Route>
         </Routes>
         <Footer />
@@ -277,6 +302,7 @@ const App = () => {
           onClose={closeAllPopups}
           isRegistred={isRegistred}
           isOpen={isTooltipPopupOpen}
+          successMsg={successMsg}
         />
       </>
     </CurrentUserContext.Provider>

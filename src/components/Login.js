@@ -21,19 +21,7 @@ const Login = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formValue.email || !formValue.password) {
-      return;
-    }
-    auth
-      .authorize(formValue.email, formValue.password)
-      .then((data) => {
-        if (data.token) {
-          setFormValue({ email: "", password: "" });
-          props.handleLogin(formValue.email);
-          navigate("/", { replace: true });
-        }
-      })
-      .catch((err) => console.log(err));
+    props.onLogin(formValue.email, formValue.password);
   };
 
   return (
@@ -49,13 +37,12 @@ const Login = (props) => {
         <div className="popup__container_type_login">
           <h2 className="popup__heading popup__heading-login">Вход</h2>
           <form
-            noValidate
             className={`popup__form popup__form_type_login`}
             onSubmit={handleSubmit}
           >
             <div className="popup__field">
               <input
-                type="url"
+                type="email"
                 autoComplete="off"
                 value={formValue.email || ""}
                 onChange={handleChange}

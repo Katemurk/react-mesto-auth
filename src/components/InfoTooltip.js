@@ -15,9 +15,7 @@ const InfoTooltip = (props) => {
           src={props.isRegistred ? imageSuccess : imageError}
         />
         <h2 className="popup__heading popup__heading_type_tooltip">
-          {props.isRegistred
-            ? "Вы успешно зарегистрировались!"
-            : "Что-то пошло не так! Попробуйте ещё раз."}
+          {props.successMsg}
         </h2>
         <button
           type="reset"

@@ -8,16 +8,11 @@ const Main = (props) => {
   const currentUser = useContext(CurrentUserContext);
   const navigate = useNavigate();
 
-  function signOut() {
-    localStorage.removeItem("jwt");
-    navigate("/sign-in");
-  }
-
   return (
     <>
       <Header>
         <button className="header__info_type_login">{props.email}</button>
-        <button onClick={signOut} className="header__info_type_logout">
+        <button onClick={props.signOut} className="header__info_type_logout">
           Выйти
         </button>
       </Header>
